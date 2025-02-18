@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Form with Table</title>
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #e8f0fe, #cfd8dc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      /* Container */
+      .container {
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 30px;
+        transition: transform 0.3s;
+      }
+
+      .container:hover {
+        transform: scale(1.02);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #444;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border: 1px solid #4a90e2;
+        outline: none;
+      }
+
+      .radio-group,
+      .hobby-group {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+      }
+
+      .radio-group label,
+      .hobby-group label {
+        font-weight: normal;
+        font-size: 14px;
+      }
+
+      button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #357ab8;
+      }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      table th,
+      table td {
+        padding: 12px 15px;
+        text-align: left;
+      }
+
+      table th {
+        background-color: #4a90e2;
+        color: white;
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+
+      table tr {
+        background-color: #fff;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f7f7f7;
+      }
+
+      table tr:hover {
+        background-color: #e8f0fe;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Enhanced Form</h1>
+      <form id="dataForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="Enter your name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Mobile Number:</label>
+          <input
+            type="number"
+            id="number"
+            placeholder="Enter mobile number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Gender:</label>
+          <div class="radio-group">
+            <label
+              >Male:<input type="radio" name="gender" value="Male" required
+            /></label>
+            <label
+              >Female:<input type="radio" name="gender" value="Female" required
+            /></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select id="city" required>
+            <option value="Ahmdabad">Ahmdabad</option>
+            <option value="Rajkot">Rajkot</option>
+            <option value="Surat">Surat</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Hobbies:</label>
+          <div class="hobby-group">
+            <label
+              ><input type="checkbox" name="hobbies" value="Reading" />
+              Reading</label
+            >
+            <label
+              ><input type="checkbox" name="hobbies" value="Traveling" />
+              Traveling</label
+            >
+            <label
+              ><input type="checkbox" name="hobbies" value="Gaming" />
+              Gaming</label
+            >
+            <label
+              ><input type="checkbox" name="hobbies" value="Sports" />
+              Sports</label
+            >
+          </div>
+        </div>
+
+        <button type="button" onclick="addData()">Submit Data</button>
+      </form>
+    </div>
+
+    <!-- Data Table -->
+    <div class="container">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Hobbies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function addData() {
+        let name = document.getElementById("name").value;
+        let number = document.getElementById("number").value;
+        let gender = document.querySelector('input[name="gender"]:checked')
+          ? document.querySelector('input[name="gender"]:checked').value
+          : "";
+        let city = document.getElementById("city").value;
+
+        // Get selected hobbies
+        let hobbies = [];
+        let hobbyCheckboxes = document.querySelectorAll(
+          'input[name="hobbies"]:checked'
+        );
+        hobbyCheckboxes.forEach((checkbox) => {
+          hobbies.push(checkbox.value);
+        });
+
+        if (!name || !number || !gender || !city) {
+          alert("Please fill in all fields!");
+          return;
+        }
+
+        // Add data to the table
+        let table = document
+          .getElementById("dataTable")
+          .getElementsByTagName("tbody")[0];
+        let newRow = table.insertRow();
+
+        newRow.innerHTML = `
+          <td>${name}</td>
+          <td>${number}</td>
+          <td>${gender}</td>
+          <td>${city}</td>
+          <td>${hobbies.join(", ") || "None"}</td>
+        `;
+
+        // Reset form
+        document.getElementById("dataForm").reset();
+      }
+    </script>
+  </body>
+</html>
