@@ -72,13 +72,12 @@
 
       function startCounter() {
         if (!interval) {
-          // Prevent multiple intervals
           interval = setInterval(() => {
             if (counter < 10) {
               counter++;
               document.getElementById("timer").textContent = counter;
             } else {
-              stopCounter(); // Auto stop at 10
+              stopCounter();
             }
           }, 1000);
         }
