@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess the Number</title>
+    <style>
+      body {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        background-color: #f0f8ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+      .container {
+        text-align: center;
+        background-color: #ffebcd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #ff6347;
+        font-size: 40px;
+      }
+      input {
+        font-size: 30px;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 2px solid #ff6347;
+        width: 100px;
+      }
+      button {
+        font-size: 25px;
+        padding: 10px 20px;
+        background-color: #ff6347;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #ff4500;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .error {
+        color: #ff0000;
+        font-size: 20px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Guess the Number!</h1>
+      <p>Pick a number between 1 to 10</p>
+      <input type="number" id="guess" min="1" max="10" />
+      <button onclick="checkGuess()">Check</button>
+      <p id="message" class="result"></p>
+      <p id="errorMessage" class="error"></p>
+    </div>
+
+    <script>
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+
+      function checkGuess() {
+        let userGuess = document.getElementById("guess").value;
+        let message = document.getElementById("message");
+        let errorMessage = document.getElementById("errorMessage");
+
+        message.textContent = "";
+        errorMessage.textContent = "";
+
+        if (userGuess < 1 || userGuess > 10 || isNaN(userGuess)) {
+          errorMessage.textContent = "Please enter a number between 1 to 10!";
+          return;
+        }
+
+        if (userGuess == randomNumber) {
+          message.textContent = "Success! You guessed right!";
+          message.style.color = "#32CD32";
+        } else {
+          message.textContent = "Oops! Try again!";
+          message.style.color = "#FF0000";
+        }
+
+        document.getElementById("guess").value = "";
+      }
+    </script>
+  </body>
+</html>
