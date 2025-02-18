@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minimalistic Neon Calculator</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #111;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .calculator {
+        background-color: #1c1c1c;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        width: 320px;
+        text-align: center;
+      }
+
+      input[type="number"] {
+        width: 80%;
+        padding: 12px;
+        margin: 12px 0;
+        font-size: 18px;
+        color: #fff;
+        background-color: #333;
+        border: 1px solid #555;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        outline: none;
+        transition: 0.3s ease;
+      }
+
+      input[type="number"]:focus {
+        box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+      }
+
+      button {
+        background-color: #00bcd4;
+        color: #fff;
+        padding: 12px 18px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        text-transform: uppercase;
+        box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+        transition: 0.3s ease;
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+      button:hover {
+        background-color: #0097a7;
+      }
+
+      #result {
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 20px;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+      }
+
+      p {
+        color: #fff;
+        font-size: 18px;
+        margin-top: 12px;
+      }
+
+      /* Stack buttons vertically */
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="number" id="num1" placeholder="Number 1" />
+      <input type="number" id="num2" placeholder="Number 2" />
+      <input type="number" id="num3" placeholder="Number 3" />
+      <br /><br />
+
+      <div class="buttons-container">
+        <button onclick="sum()">Sum</button>
+        <button onclick="subtract()">Subtract</button>
+        <button onclick="multiply()">Multiply</button>
+        <button onclick="divide()">Divide</button>
+        <button onclick="clearFields()">Clear</button>
+      </div>
+
+      <br /><br />
+      <p>Result:</p>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function sum() {
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+        let num3 = parseFloat(document.getElementById("num3").value);
+        document.getElementById("result").innerText = num1 + num2 + num3;
+      }
+
+      function subtract() {
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+        let num3 = parseFloat(document.getElementById("num3").value);
+        document.getElementById("result").innerText = num1 - num2 - num3;
+      }
+
+      function multiply() {
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+        let num3 = parseFloat(document.getElementById("num3").value);
+        document.getElementById("result").innerText = num1 * num2 * num3;
+      }
+
+      function divide() {
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+        let num3 = parseFloat(document.getElementById("num3").value);
+        document.getElementById("result").innerText =
+          num3 !== 0 && num2 !== 0
+            ? num1 / num2 / num3
+            : "Cannot divide by zero";
+      }
+
+      function clearFields() {
+        document.getElementById("num1").value = "";
+        document.getElementById("num2").value = "";
+        document.getElementById("num3").value = "";
+        document.getElementById("result").innerText = "";
+      }
+    </script>
+  </body>
+</html>
