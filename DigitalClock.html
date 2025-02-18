@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: "Arial", sans-serif;
+        overflow: hidden;
+      }
+
+      .clock-container {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        padding: 40px;
+        width: 320px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .date {
+        font-size: 1.2em;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin-bottom: 10px;
+      }
+
+      .time {
+        font-size: 3em;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        letter-spacing: 2px;
+      }
+
+      .time {
+        animation: glow 1.5s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #fff, 0 0 20px #ff9a9e, 0 0 30px #ff9a9e,
+            0 0 40px #fad0c4;
+        }
+        to {
+          text-shadow: 0 0 20px #fff, 0 0 30px #ff9a9e, 0 0 40px #ff9a9e,
+            0 0 50px #fad0c4;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock-container">
+      <div class="date" id="date"></div>
+      <div class="time" id="time"></div>
+    </div>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const date = now.toLocaleDateString(undefined, {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const time = now.toLocaleTimeString();
+        document.getElementById("date").textContent = date;
+        document.getElementById("time").textContent = time;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+  </body>
+</html>
