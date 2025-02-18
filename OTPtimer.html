@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Timer</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #e0f7fa;
+        font-family: Arial, sans-serif;
+      }
+
+      .otp-timer {
+        text-align: center;
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.8em;
+        color: #00796b;
+      }
+
+      #otp {
+        font-size: 2em;
+        color: #00796b;
+        margin: 20px 0;
+        letter-spacing: 3px;
+      }
+
+      #timer {
+        font-size: 1.5em;
+        color: #d32f2f;
+        margin: 20px 0;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 1em;
+        background: #00796b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #004d40;
+      }
+
+      #resendBtn {
+        background: #d32f2f;
+        display: none;
+      }
+
+      #resendBtn:hover {
+        background: #b71c1c;
+      }
+
+      #startBtn:disabled {
+        background: #004d40;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="otp-timer">
+      <h2>OTP Timer</h2>
+      <div id="otp">OTP: - - - -</div>
+      <div id="timer">00:30</div>
+      <button id="startBtn" onclick="startTimer()">Send OTP</button>
+      <button id="resendBtn" onclick="startTimer()">Resend OTP</button>
+    </div>
+
+    <script>
+      let timer;
+      let seconds = 30;
+
+      function updateTimer() {
+        let minutes = Math.floor(seconds / 60);
+        let remainingSeconds = seconds % 60;
+        document.getElementById("timer").textContent = `${pad(minutes)}:${pad(
+          remainingSeconds
+        )}`;
+        if (seconds === 0) {
+          clearInterval(timer);
+          document.getElementById("resendBtn").style.display = "inline-block"; // Show Resend OTP
+          document.getElementById("startBtn").style.display = "none"; // Hide Send OTP
+        }
+        seconds--;
+      }
+
+      function pad(num) {
+        return num < 10 ? `0${num}` : num;
+      }
+
+      function generateOTP() {
+        let otp = Math.floor(1000 + Math.random() * 9000);
+        document.getElementById("otp").textContent = `OTP: ${otp}`;
+      }
+
+      function startTimer() {
+        generateOTP();
+        seconds = 30;
+        document.getElementById("resendBtn").style.display = "none"; // Hide Resend OTP initially
+        document.getElementById("startBtn").style.display = "none"; // Hide Send OTP button
+        timer = setInterval(updateTimer, 1000);
+      }
+    </script>
+  </body>
+</html>
