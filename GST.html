@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GST CALCULATOR</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+      .main {
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 30px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      input[type="text"]:focus,
+      select:focus {
+        outline: none;
+        border-color: #6c63ff;
+      }
+
+      button {
+        background-color: #6c63ff;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #5745c8;
+      }
+
+      button:active {
+        background-color: #4a3ab2;
+      }
+
+      p {
+        font-size: 18px;
+        margin-top: 10px;
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <h1>GST CALCULATOR</h1>
+      <label for="amnt">Enter Amount (in INR):</label>
+      <input type="text" id="amnt" />
+
+      <label for="gst">Select GST Rate:</label>
+      <select id="gst" name="gst_cal">
+        <option value="5">5%</option>
+        <option value="12">12%</option>
+        <option value="18">18%</option>
+        <option value="24">24%</option>
+        <option value="30">30%</option>
+      </select>
+
+      <button type="button" onclick="Calculate()">Calculate GST</button>
+
+      <p id="price"></p>
+      <p id="gst_show"></p>
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function Calculate() {
+        let unt = document.getElementById("amnt").value;
+        let ammount = parseFloat(unt);
+        if (isNaN(ammount) || ammount <= 0) {
+          alert("Please Enter a valid amount or greater than 0");
+          return;
+        }
+
+        let prc = document.getElementById("price");
+        prc.innerHTML = `Amount ₹: ${ammount}.00`;
+
+        let perce = document.getElementById("gst").value;
+        let perc = parseFloat(perce);
+        let show = document.getElementById("gst_show");
+        let gstAmount = parseFloat((perc / 100) * ammount);
+        show.innerHTML = `GST (${perc}%) = ₹: ${gstAmount.toFixed(2)}`;
+
+        let res = document.getElementById("result");
+        let totalAmount = ammount + gstAmount;
+        res.innerHTML = `Total Amount (including GST): ₹: ${totalAmount.toFixed(
+          2
+        )}`;
+      }
+    </script>
+  </body>
+</html>
