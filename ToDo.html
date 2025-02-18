@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classic To-Do App</title>
+    <style>
+      body {
+        background: #f0f0f0;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        padding-top: 50px;
+      }
+
+      h2 {
+        color: #333;
+        text-transform: uppercase;
+      }
+
+      input[type="text"] {
+        width: 250px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        padding: 8px 15px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      ul li {
+        background: white;
+        margin: 10px auto;
+        padding: 10px;
+        width: 300px;
+        text-align: left;
+        border-radius: 4px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      ul li .actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      ul li .actions button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      ul li .actions .edit {
+        color: #ffc107;
+      }
+
+      ul li .actions .delete {
+        color: #dc3545;
+      }
+
+      ul li .actions .update {
+        color: #28a745;
+      }
+
+      ul li .actions button:hover {
+        opacity: 0.7;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Add new task..." />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+      function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const taskValue = taskInput.value.trim();
+        if (taskValue === "") return;
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+        <span class="task">${taskValue}</span>
+        <div class="actions">
+          <button class="edit" onclick="editTask(this)">✏️</button>
+          <button class="update hidden" onclick="updateTask(this)">✅</button>
+          <button class="delete" onclick="deleteTask(this)">🗑️</button>
+        </div>
+      `;
+        document.getElementById("taskList").appendChild(li);
+        taskInput.value = "";
+      }
+
+      function editTask(btn) {
+        const li = btn.parentElement.parentElement;
+        const taskSpan = li.querySelector(".task");
+        const editButton = li.querySelector(".edit");
+        const updateButton = li.querySelector(".update");
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = taskSpan.textContent;
+        input.className = "edit-input";
+        taskSpan.replaceWith(input);
+
+        editButton.classList.add("hidden");
+        updateButton.classList.remove("hidden");
+      }
+
+      function updateTask(btn) {
+        const li = btn.parentElement.parentElement;
+        const input = li.querySelector(".edit-input");
+        const updateButton = li.querySelector(".update");
+        const editButton = li.querySelector(".edit");
+
+        const span = document.createElement("span");
+        span.className = "task";
+        span.textContent = input.value;
+        input.replaceWith(span);
+
+        updateButton.classList.add("hidden");
+        editButton.classList.remove("hidden");
+      }
+
+      function deleteTask(btn) {
+        btn.parentElement.parentElement.remove();
+      }
+    </script>
+  </body>
+</html>
